@@ -3,7 +3,7 @@ import { useState } from "react";
 function Home() {
   return (
     <div>
-      <h2>Teste</h2>
+      <h1>TESTE</h1>
       <CapsLock>luizao</CapsLock>
       <Contador />
     </div>
