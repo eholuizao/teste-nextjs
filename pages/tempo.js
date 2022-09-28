@@ -1,8 +1,36 @@
-function Tempo() {
+import React from "react";
+
+function Tempo(props) {
+    // I don't know yet exactly what the useStat and useEffects does, what i know its this piece of code is rendering nothing at the first run of "Tempo", so the server won't generate and render a HTML file diferent of the file that will be hydrated by React!
+    const [hydrated, setHydrated] = React.useState(false);
+    React.useEffect(() => {
+        setHydrated(true);
+    }, []);
+    if (!hydrated) {
+        // Returns null on first render, so the client and server match
+        return null;
+    }
+
     const dynamicDate = new Date();
     const dynamicDateString = dynamicDate.toGMTString();
 
-    return <div>{dynamicDateString} (dinâmico)</div>;
+    return (
+        <div>
+            <div>{dynamicDateString} (dinâmico)</div>
+            <div>{props.staticDateString} (estático)</div>
+        </div>
+    );
+}
+
+export function getStaticProps() {
+    const staticDate = new Date();
+    const staticDateString = staticDate.toGMTString();
+
+    return {
+        props: {
+            staticDateString,
+        },
+    };
 }
 
 export default Tempo;
