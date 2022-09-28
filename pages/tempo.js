@@ -1,7 +1,7 @@
 import React from "react";
 
 function Tempo(props) {
-    // I don't know yet exactly what the useStat and useEffects does, what i know its this piece of code is rendering nothing at the first run of "Tempo", so the server won't generate and render a HTML file diferent of the file that will be hydrated by React!
+    // I don't know yet exactly what the useStat and useEffects does, what i know its this piece of code is rendering nothing at the first run of "Tempo", so it ensures that the server won't generate and render a HTML file diferent of the HTML file that will be hydrated by React!
     const [hydrated, setHydrated] = React.useState(false);
     React.useEffect(() => {
         setHydrated(true);
@@ -22,6 +22,8 @@ function Tempo(props) {
     );
 }
 
+// Function called only in the building process of the application, which will get the date and freeze it to the production phase.
+// Generates statically the properties of a page.
 export function getStaticProps() {
     const staticDate = new Date();
     const staticDateString = staticDate.toGMTString();
@@ -30,6 +32,7 @@ export function getStaticProps() {
         props: {
             staticDateString,
         },
+        revalidate: 1,
     };
 }
 
